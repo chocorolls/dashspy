@@ -1,16 +1,21 @@
-# dashspy
+# DashSpy
 
-A new Flutter project.
+## FAQ
 
-## Getting Started
+**What is it?**
+DashSpy is an ultra cool HyperDash server and online players browser written in Dart/Flutter.
 
-This project is a starting point for a Flutter application.
+**Why make this?**
+Some people might want to check quickly who's online on Hyper Dash without having to turn on their headset or PC.
 
-A few resources to get you started if this is your first Flutter project:
+**How does it work?**
+It pulls data from Zed's API, sort it, organize it, and display it to you.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+**Does it contain ads?**
+No.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Will it log my IP and other information?**
+No.
+
+**Will you marry me?**
+No.
