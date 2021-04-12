@@ -1,6 +1,6 @@
 import 'package:dashspy/models/player.dart';
 
-class Server {
+class Server implements Comparable<Server> {
   String? name;
   String? region;
   String? zone;
@@ -30,5 +30,10 @@ class Server {
               .toList()
           : [],
     );
+  }
+
+  @override
+  int compareTo(Server other) {
+    return (name ?? '').compareTo(other.name ?? '');
   }
 }

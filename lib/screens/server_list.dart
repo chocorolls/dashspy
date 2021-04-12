@@ -16,6 +16,7 @@ class _ServerListPageState extends State<ServerListPage> {
   var searchCtrl = TextEditingController();
   bool hideEmpty = true;
   String mode = 'all';
+  bool showOptions = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,45 +29,58 @@ class _ServerListPageState extends State<ServerListPage> {
 
         return Column(
           children: [
-            Container(
+            Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Wrap(
-                  children: [
-                    //ToggleButtons(children: children, isSelected: isSelected)
-                    CheckboxListTile(
-                      title: Text('Hide <5 players'),
-                      value: hideEmpty,
-                      onChanged: (val) {
-                        setState(() {
-                          hideEmpty = val!;
-                        });
-                      },
-                    ),
-                    ListTile(
-                      title: Text('Show'),
-                      subtitle: Text('tap to toggle'),
-                      trailing: Text(mode),
-                      onTap: () {
-                        switch (mode) {
-                          case 'all':
-                            mode = 'public';
-                            break;
-                          case 'public':
-                            mode = 'private';
-                            break;
-                          case 'private':
-                            mode = 'all';
-                            break;
-                        }
-
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  setState(() {
+                    showOptions = !showOptions;
+                  });
+                },
+                icon: Icon(Icons.settings),
+                label: Text('Options'),
               ),
             ),
+            if (showOptions)
+              Container(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Wrap(
+                    children: [
+                      //ToggleButtons(children: children, isSelected: isSelected)
+                      CheckboxListTile(
+                        title: Text('Hide fewer than 4 players'),
+                        value: hideEmpty,
+                        onChanged: (val) {
+                          setState(() {
+                            hideEmpty = val!;
+                          });
+                        },
+                      ),
+                      ListTile(
+                        title: Text('Show'),
+                        subtitle: Text('tap to toggle'),
+                        trailing: Text(mode),
+                        onTap: () {
+                          switch (mode) {
+                            case 'all':
+                              mode = 'public';
+                              break;
+                            case 'public':
+                              mode = 'private';
+                              break;
+                            case 'private':
+                              mode = 'all';
+                              break;
+                          }
+
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             Expanded(
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
@@ -78,7 +92,7 @@ class _ServerListPageState extends State<ServerListPage> {
                     return Container();
                   }
 
-                  if (srv.players!.length < 5 && hideEmpty) {
+                  if (srv.players!.length < 4 && hideEmpty) {
                     return Container();
                   }
 
@@ -113,43 +127,41 @@ class ServerTile extends StatelessWidget {
   Widget build(BuildContext context) {
     Color? chipColor;
 
-    if (srv.players!.length < 5) {
+    if (srv.players!.length < 4) {
       // chipColor: Colors.orange;
-    } else if (srv.players!.length < 8) {
+    } else if (srv.players!.length < 7) {
       chipColor = Colors.orange;
     } else {
       chipColor = Colors.green;
     }
 
-    return Card(
-      child: ListTile(
-        leading: SizedBox(
-          width: 80,
-          child: Chip(
-            backgroundColor: chipColor,
-            label: Text('${srv.players!.length} / 10'),
-          ),
+    return ListTile(
+      leading: SizedBox(
+        width: 80,
+        child: Chip(
+          backgroundColor: chipColor,
+          label: Text('${srv.players!.length} / 10'),
         ),
-        title: Text(srv.name!.contains('#') ? '${srv.region}' : '${srv.name}'),
-        subtitle: !srv.name!.contains('#')
-            ? Text(srv.region ?? '')
-            : Text(srv.name!.split('#')[1]),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Text(
-              srv.map ?? srv.mode ?? '',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        onTap: () {
-          Get.to(() => ServerViewPage(server: srv));
-        },
       ),
+      title: Text(srv.name!.contains('#') ? '${srv.region}' : '${srv.name}'),
+      subtitle: !srv.name!.contains('#')
+          ? Text(srv.region ?? '')
+          : Text(srv.name!.split('#')[1]),
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Text(
+            srv.map ?? srv.mode ?? '',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+      onTap: () {
+        Get.to(() => ServerViewPage(server: srv));
+      },
     );
   }
 }

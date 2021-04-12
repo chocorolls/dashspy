@@ -14,13 +14,13 @@ class TagListPage extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
         }
 
-        var tagKeys = ctrl.tags.keys.toList();
+        //var tagKeys = ctrl.tags.keys.toList();
         return ListView.builder(
           padding: const EdgeInsets.all(8),
-          itemCount: ctrl.tags.keys.length,
+          //itemCount: ctrl.tags.keys.length,
           itemBuilder: (context, index) {
-            var key = tagKeys[index];
-            var playerList = ctrl.tags[index];
+            //var key = tagKeys[index];
+            //var playerList = ctrl.tags[index];
 
             /*if (playerList == null || srv.players!.length == 0) {
               return Container();
@@ -38,7 +38,7 @@ class TagListPage extends StatelessWidget {
 
             return Card(
               child: ListTile(
-                title: Text(key),
+                //title: Text(key),
                 onTap: () {
                   // Get.to(() => ServerViewPage(server: srv));
                 },

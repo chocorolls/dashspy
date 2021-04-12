@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('rev. 3'),
+            child: Text('rev. 5'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -28,6 +28,14 @@ class AboutPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text('API by Zed'),
+          ),
+          Divider(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "Privacy: \n No information is collected. \n All it does is get server list as you would with your VR headset, organize and display, thats it",
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
